@@ -1,0 +1,9 @@
+{
+    "html_filename": "projectsample.html",
+    "short_title": "Sample Project",
+    "long_title": "This is a sample project.",
+    "description":[
+        "This is my sample project, I hope you enjoy it.",
+        "Multiple paragraphics can be added to this list."
+    ]
+}
