@@ -33,38 +33,14 @@ def main():
                 if "long_title" not in tempdict:
                     tempdict["long_title"] = "Temporary Page Title"
 
-                #tempdict["html_filename"] = RetrieveFromJson(json_file_data, "html_filename")
-                #tempdict["short_title"] = RetrieveFromJson(json_file_data, "short_title")
-                #tempdict["long_title"] = RetrieveFromJson(json_file_data, "long_title")
+               
                 file.close()
                 pertinent_subdirectory_list.append(tempdict)
 
     pass
 
-    #Check for images object 
-    #json_file_data = None
-    #json_file_name = os.path.join(input_directory, "images.json")
-    
-    #Output filename
-    #html_filename = None
-
-    #Tab title
-    #short_title = None
-
-    #Header title
-    #long_title = None
-
-    #Get JSON data
-    #if os.path.exists(json_file_name):
-    #    if os.path.isfile(json_file_name):
-    #        file = open(json_file_name)
-    #        json_file_data = json.load(file)
-    #        html_filename = RetrieveFromJson(json_file_data, "html_filename")
-    #        short_title = RetrieveFromJson(json_file_data, "short_title")
-    #        long_title = RetrieveFromJson(json_file_data, "long_title")
-
     #Pulling this into memory isn't incredibly efficient, but the files are small.
-
+    #All data is stored in the dictionary at this point
     for current_subdirectory in pertinent_subdirectory_list:
         template_file = open(os.path.join(output_directory,"project_page_template.html"),"rt")
         output_file = open(os.path.join(output_directory,current_subdirectory["html_filename"]), "w")
