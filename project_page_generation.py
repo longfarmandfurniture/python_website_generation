@@ -9,7 +9,7 @@ def main():
         print(f"{input_directory} is not a directory.")
         exit(0)
 
-#Check for images object 
+    #Check for images object 
     json_file_data = None
     json_file_name = os.path.join(input_directory, "images.json")
     
@@ -26,8 +26,12 @@ def main():
         if os.path.isfile(json_file_name):
             file = open(json_file_name)
             json_file_data = json.load(file)
-            if "html_filename" in json_file_data:
-                html_filename = json_file_data["html_filename"]
+            html_filename = RetrieveFromJson(json_file_data, "html_filename")
+            short_title = RetrieveFromJson(json_file_data, "short_title")
+            long_title = RetrieveFromJson(json_file_data, "long_title")
+
+
+    pass
 
 
 
@@ -37,10 +41,11 @@ def main():
 
 
 
-
-
-
-
+def RetrieveFromJson(passed_json:dict, passed_index_name:str):
+    if passed_index_name in passed_json:
+        return passed_json[passed_index_name]
+    else:
+        return None
 
 #Keep at bottom
 if __name__ == "__main__":
