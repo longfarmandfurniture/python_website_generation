@@ -1,6 +1,7 @@
 import os
 import shutil
 import json
+import datetime
 
 def main():
     #Get directory and check status
@@ -44,7 +45,19 @@ def main():
     output_content = []
     for current_line in template_content:
         temp_line = current_line
-        temp_line = temp_line.replace("$$css$$", "stuff")
+
+        #Set current date/time to deal with PITA CSS caching
+        now = datetime.datetime.utcnow()
+        temp_line = temp_line.replace("%%css%%", now.strftime('%m%d%y%H%M%S'))
+
+        #Short title instances
+        temp_line = temp_line.replace("%%short_title%%", short_title)
+
+        #Long title instances
+        temp_line = temp_line.replace("%%long_title%%", long_title)
+
+
+        #append line to output list
         output_content.append(temp_line)
 
     output_file.writelines(output_content)
