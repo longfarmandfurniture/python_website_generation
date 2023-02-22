@@ -33,6 +33,9 @@ def main():
                 if "long_title" not in tempdict:
                     tempdict["long_title"] = "Temporary Page Title"
 
+                if "description" not in tempdict:
+                    tempdict["description"] = [ "Temporary description." ]
+
                
                 file.close()
                 pertinent_subdirectory_list.append(tempdict)
@@ -48,6 +51,7 @@ def main():
         template_file.close()
         output_content = []
         for current_line in template_content:
+            append_line = True
             temp_line = current_line
 
             #Set current date/time to deal with PITA CSS caching
@@ -60,9 +64,17 @@ def main():
             #Long title instances
             temp_line = temp_line.replace("%%long_title%%", current_subdirectory["long_title"])
 
+            #Variable number of description lines
+            if "%%description%%" in temp_line:
+                append_line = False
+                for item in current_subdirectory["description"]:
+                    output_content.append(item)
+                    output_content.append("\n<br><br>\n")
+
 
             #append line to output list
-            output_content.append(temp_line)
+            if append_line:
+                output_content.append(temp_line)
 
         output_file.writelines(output_content)
         output_file.close()
