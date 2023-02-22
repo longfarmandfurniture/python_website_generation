@@ -9,6 +9,11 @@ def main():
         print(f"{input_directory} is not a directory.")
         exit(0)
 
+    output_directory = input("Please enter the output directory: ")
+    if os.path.isdir(output_directory) == False:
+        print(f"{output_directory} is not a directory.")
+        exit(0)
+
     #Check for images object 
     json_file_data = None
     json_file_name = os.path.join(input_directory, "images.json")
@@ -22,6 +27,7 @@ def main():
     #Header title
     long_title = None
 
+    #Get JSON data
     if os.path.exists(json_file_name):
         if os.path.isfile(json_file_name):
             file = open(json_file_name)
@@ -30,7 +36,19 @@ def main():
             short_title = RetrieveFromJson(json_file_data, "short_title")
             long_title = RetrieveFromJson(json_file_data, "long_title")
 
+    #Pulling this into memory isn't incredibly efficient, but the files are small.
+    template_file = open(os.path.join(output_directory,"project_page_template.html"),"rt")
+    output_file = open(os.path.join(output_directory,html_filename), "w")
+    template_content = template_file.readlines()
+    template_file.close()
+    output_content = []
+    for current_line in template_content:
+        temp_line = current_line
+        temp_line = temp_line.replace("$$css$$", "stuff")
+        output_content.append(temp_line)
 
+    output_file.writelines(output_content)
+    output_file.close()
     pass
 
 
