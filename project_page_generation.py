@@ -13,7 +13,7 @@ def main():
 
     #Get all subdirectories
     subdirectory_list = GetAllSubdirectories(output_directory)
-    pertinent_subdirectory_list = []
+    project_list = []
     for x in subdirectory_list:
         json_filename = os.path.join(x, "images.json")
         if os.path.exists(json_filename):
@@ -25,6 +25,11 @@ def main():
                 file = open(json_filename)
                 json_file_data = json.load(file)
                 tempdict.update(json_file_data)
+
+                #Get picture filenames, relative path, but OS dependent
+                images_list = FindFilesRelative(output_directory, x, "jpg,jpeg,png")
+                images_list.sort()
+                tempdict["images"] = images_list
 
                 #Fill in any gaps
                 if "short_title" not in tempdict:
@@ -38,15 +43,15 @@ def main():
 
                
                 file.close()
-                pertinent_subdirectory_list.append(tempdict)
+                project_list.append(tempdict)
 
     pass
 
     #Pulling this into memory isn't incredibly efficient, but the files are small.
     #All data is stored in the dictionary at this point
-    for current_subdirectory in pertinent_subdirectory_list:
+    for current_project in project_list:
         template_file = open(os.path.join(output_directory,"project_page_template.html"),"rt")
-        output_file = open(os.path.join(output_directory,current_subdirectory["html_filename"]), "w")
+        output_file = open(os.path.join(output_directory,current_project["html_filename"]), "w")
         template_content = template_file.readlines()
         template_file.close()
         output_content = []
@@ -59,17 +64,23 @@ def main():
             temp_line = temp_line.replace("%%css%%", now.strftime('%m%d%y%H%M%S'))
 
             #Short title instances
-            temp_line = temp_line.replace("%%short_title%%", current_subdirectory["short_title"])
+            temp_line = temp_line.replace("%%short_title%%", current_project["short_title"])
 
             #Long title instances
-            temp_line = temp_line.replace("%%long_title%%", current_subdirectory["long_title"])
+            temp_line = temp_line.replace("%%long_title%%", current_project["long_title"])
 
             #Variable number of description lines
             if "%%description%%" in temp_line:
                 append_line = False
-                for item in current_subdirectory["description"]:
-                    output_content.append(item)
-                    output_content.append("\n<br><br>\n")
+                for item in current_project["description"]:
+                    output_content.append(f"\t\t{item}\n<br><br>\n")
+
+            if "%%images%%" in temp_line:
+                append_line = False
+                for current_image in current_project["images"]:
+                    #For HTML since source dict will be OS dependent
+                    html_path = current_image.replace("\\", "/")
+                    output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
 
 
             #append line to output list
@@ -86,7 +97,17 @@ def main():
 
 
 
-
+def FindFilesRelative(passed_root: str, passed_directory:str, passed_extensions:str):
+    extension_list = passed_extensions.split(",")
+    file_list = os.listdir(passed_directory)
+    
+    return_list = []
+    for file in file_list:
+        for extension in extension_list:
+            if file.lower().endswith(extension.replace(" ", "").lower()):
+                relative_path = os.path.relpath(passed_directory, passed_root)
+                return_list.append(os.path.join(relative_path,file))
+    return return_list
 
 def RetrieveFromJson(passed_json:dict, passed_index_name:str):
     if passed_index_name in passed_json:
