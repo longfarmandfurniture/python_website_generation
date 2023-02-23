@@ -81,6 +81,9 @@ def main():
             #Preview/thumbnail
             temp_line = temp_line.replace("%%preview%%", current_project["preview_file_location"].replace("\\", "/"))
 
+            #Return link
+            temp_line = temp_line.replace("%%parent%%", current_project["parent_page"])
+
             #Variable number of description lines
             if "%%description%%" in temp_line:
                 append_line = False
