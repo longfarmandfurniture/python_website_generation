@@ -31,6 +31,15 @@ def main():
                 images_list.sort()
                 tempdict["images"] = images_list
 
+                #Preview image, not included with files
+                #return [i for i, x in enumerate(lst) if x<a or x>b]
+                if "preview_file_name" in tempdict:
+                    temp_index = [i for i, x in enumerate(images_list) if x.endswith(tempdict["preview_file_name"])]
+                    if len(temp_index) > 0:
+                        tempdict["preview_file_location"] = images_list[temp_index[0]]
+                        images_list.remove(images_list[temp_index[0]])
+                    pass
+
                 #Fill in any gaps
                 if "short_title" not in tempdict:
                     tempdict["short_title"] = "Temp Title"
@@ -68,6 +77,9 @@ def main():
 
             #Long title instances
             temp_line = temp_line.replace("%%long_title%%", current_project["long_title"])
+
+            #Preview/thumbnail
+            temp_line = temp_line.replace("%%preview%%", current_project["preview_file_location"].replace("\\", "/"))
 
             #Variable number of description lines
             if "%%description%%" in temp_line:
