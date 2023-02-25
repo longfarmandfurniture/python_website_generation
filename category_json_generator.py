@@ -16,6 +16,7 @@ def main():
         if os.path.exists(json_filename):
             #Get data and add to dictionary if a valid JSON is found
             if os.path.isfile(json_filename):
+                print(f"Found file {json_filename}.")
                 tempdict = {}
                 tempdict["root"] = output_directory
                 tempdict["relative"] = os.path.relpath(x,output_directory)
@@ -30,6 +31,18 @@ def main():
 
                 #Just get data needed.  Another script will get the rest of the information.
                 page_list.append(temp_page)
+
+    #Get list of parent pages
+    parent_page_list = []
+    for x in page_list:
+        parent_page_file = x["parent_page"]
+        #Add dict if it doesn't exist
+        if parent_page_file not in parent_page_list:
+            print(f"Adding parent page {parent_page_file}")
+            temp_page = {}
+            temp_page["parent_page"] = parent_page_file
+            parent_page_list.append(temp_page)
+            
 
     pass
 
