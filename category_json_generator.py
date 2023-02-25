@@ -37,12 +37,18 @@ def main():
     for x in page_list:
         parent_page_file = x["parent_page"]
         #Add dict if it doesn't exist
-        if parent_page_file not in parent_page_list:
+        #if parent_page_file not in parent_page_list:
+        if parent_page_file not in [i['parent_page'] for i in parent_page_list]:
             print(f"Adding parent page {parent_page_file}")
             temp_page = {}
             temp_page["parent_page"] = parent_page_file
+            temp_page["json_data_file_list"] = [x["page_data_file"]]
             parent_page_list.append(temp_page)
-            
+        #Add data if parent page already in list
+        else:
+            pass
+            #Find a good way to do this with list comprehension.  
+            #Need to add value to list in dict that matches.  
 
     pass
 
