@@ -46,9 +46,28 @@ def main():
             parent_page_list.append(temp_page)
         #Add data if parent page already in list
         else:
+            temp_list = []
+            #Not that efficient, but this is a utility script for a small number of files
+            for current_page in parent_page_list:
+                temp_dict = {}
+                if current_page["parent_page"] == parent_page_file:
+                    temp_dict = current_page
+                    temp_dict["json_data_file_list"].append(x["page_data_file"])
+                temp_list.append(temp_dict)
+            parent_page_list = temp_list
+
             pass
             #Find a good way to do this with list comprehension.  
             #Need to add value to list in dict that matches.  
+
+    for current_page in parent_page_list:
+        
+        #Write output JSON
+        #We write to a separated file so that the user-modified file isn't overwritten.
+        filename = current_page["parent_page"].replace(".html","") + "_automated" + ".json"
+        output_file = open(os.path.join(output_directory,filename), "w")
+        json.dump(current_page, output_file, indent=4)
+        output_file.close()
 
     pass
 
