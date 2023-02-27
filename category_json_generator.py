@@ -42,7 +42,16 @@ def main():
             print(f"Adding parent page {parent_page_file}")
             temp_page = {}
             temp_page["parent_page"] = parent_page_file
+            #Add sample values that the user will modify later
+            temp_page["short_title"] = "Taskbar Title"
+            temp_page["long_title"] = "Longer Title for Page Content"
+            temp_page["descrption"] = ["Description list", "Add as desired"]
+            temp_page["preview_file_name"] = "1200x630ImageFileForShare"
+            #Add list of jsons, user will rearrange to desired order.
             temp_page["json_data_file_list"] = [x["page_data_file"]]
+            
+            
+
             parent_page_list.append(temp_page)
         #Add data if parent page already in list
         else:
@@ -61,7 +70,6 @@ def main():
             #Need to add value to list in dict that matches.  
 
     for current_page in parent_page_list:
-        
         #Write output JSON
         #We write to a separated file so that the user-modified file isn't overwritten.
         filename = current_page["parent_page"].replace(".html","") + "_automated" + ".json"
