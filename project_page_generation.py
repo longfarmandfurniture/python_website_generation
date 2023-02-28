@@ -19,6 +19,7 @@ def main():
         if os.path.exists(json_filename):
             #Get data and add to dictionary if a valid JSON is found
             if os.path.isfile(json_filename):
+                print(f"Found file: {json_filename}.")
                 tempdict = {}
                 tempdict["root"] = output_directory
                 tempdict["relative"] = os.path.relpath(x,output_directory)
@@ -38,6 +39,7 @@ def main():
                     if len(temp_index) > 0:
                         tempdict["preview_file_location"] = images_list[temp_index[0]]
                         images_list.remove(images_list[temp_index[0]])
+                        print(f"Found preview imageL {tempdict['preview_file_name']}.")
                     pass
 
                 #Fill in any gaps
@@ -101,7 +103,7 @@ def main():
             #append line to output list
             if append_line:
                 output_content.append(temp_line)
-
+        print(f"Writing file: {current_project['html_filename']}.")
         output_file.writelines(output_content)
         output_file.close()
     pass
