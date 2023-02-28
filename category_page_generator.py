@@ -43,6 +43,15 @@ def main():
         #Get template content
         template_content = template_file.readlines()
         template_file.close
+
+        #modified page content lines
+        output_content = []
+
+        
+        #Continue here with content generation
+
+
+
         pass
 
 
