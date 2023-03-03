@@ -77,39 +77,19 @@ def main():
                         tempdict = {}
                         with open(current_json_data_file) as file:
                             tempdict = json.load(file)
-                        pass
-
-
-
-
-
-
-
-
-                    
-
-
-
-
-                    pass
-
-
-
-
-
-
-                #for current_image in current_project["images"]:
-                    #For HTML since source dict will be OS dependent
-                 #   html_path = current_image.replace("\\", "/")
-                #    output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
+                        
+                        #Create link/image in page from share link (should always be share size)
+                        output_content.append(f'\t\t<a href="{tempdict["html_filename"]}">')
+                        preview_file_path = os.path.relpath(os.path.dirname(current_json_data_file), output_directory) + f"/{tempdict['preview_file_name']}"
+                        #for Windows
+                        preview_file_path = preview_file_path.replace("\\", "/")
+                        output_content.append(f'<img src="{preview_file_path}">')
+                        output_content.append(f'</a><br><br>\n')
 
 
             #append line to output list
             if append_line:
                 output_content.append(current_line)
-
-
-
 
 
         print(f"Writing file: {current_category['parent_page']}.")
@@ -120,77 +100,6 @@ def main():
 
 
     pass
-
-
-
-
-
-
-
-    #     output_content = []
-    #     for current_line in template_content:
-    #         append_line = True
-    #         temp_line = current_line
-
-    #         # Set current date/time to deal with PITA CSS caching
-    #         now = datetime.datetime.utcnow()
-    #         temp_line = temp_line.replace(
-    #             "%%css%%", now.strftime('%m%d%y%H%M%S'))
-
-    #         # Short title instances
-    #         temp_line = temp_line.replace(
-    #             "%%short_title%%", current_project["short_title"])
-
-    #         # Long title instances
-    #         temp_line = temp_line.replace(
-    #             "%%long_title%%", current_project["long_title"])
-
-    #         # Preview/thumbnail
-    #         temp_line = temp_line.replace(
-    #             "%%preview%%", current_project["preview_file_location"].replace("\\", "/"))
-
-    #         # Return link
-    #         temp_line = temp_line.replace(
-    #             "%%parent%%", current_project["parent_page"])
-
-    #         # Variable number of description lines
-    #         if "%%description%%" in temp_line:
-    #             append_line = False
-    #             for item in current_project["description"]:
-    #                 output_content.append(f"\t\t{item}\n<br><br>\n")
-
-    #         if "%%images%%" in temp_line:
-    #             append_line = False
-    #             for current_image in current_project["images"]:
-    #                 # For HTML since source dict will be OS dependent
-    #                 html_path = current_image.replace("\\", "/")
-    #                 output_content.append(
-    #                     f"\t\t<img src=\"{html_path}\"><br><br>\n")
-
-    #         # append line to output list
-    #         if append_line:
-    #             output_content.append(temp_line)
-    #     print(f"Writing file: {current_project['html_filename']}.")
-    #     output_file.writelines(output_content)
-    #     output_file.close()
-    # pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def RetrieveFromJson(passed_json: dict, passed_index_name: str):
     if passed_index_name in passed_json:
