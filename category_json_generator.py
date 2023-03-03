@@ -45,7 +45,7 @@ def main():
             #Add sample values that the user will modify later
             temp_page["short_title"] = "Taskbar Title"
             temp_page["long_title"] = "Longer Title for Page Content"
-            temp_page["descrption"] = ["Description list", "Add as desired"]
+            temp_page["description"] = ["Description list", "Add as desired"]
             temp_page["preview_file_name"] = "1200x630ImageFileForShare"
             #Add list of jsons, user will rearrange to desired order.
             temp_page["json_data_file_list"] = [x["page_data_file"]]

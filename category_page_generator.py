@@ -47,8 +47,40 @@ def main():
         #modified page content lines
         output_content = []
 
+        for current_line in template_content:
+            append_line = True
+
+            #Set current date/time to deal with PITA CSS caching
+            now = datetime.datetime.utcnow()
+            current_line = current_line.replace("%%css%%", now.strftime('%m%d%y%H%M%S'))
+
+            #Short title instances
+            current_line = current_line.replace("%%short_title%%", current_category["short_title"])
+
+            #Long title instances
+            current_line = current_line.replace("%%long_title%%", current_category["long_title"])
+
+            #Variable number of description lines
+            if "%%description%%" in current_line:
+                append_line = False
+                for item in current_category["description"]:
+                    output_content.append(f"\t\t{item}\n<br><br>\n")
+
         
-        #Continue here with content generation
+
+
+
+            #append line to output list
+            if append_line:
+                output_content.append(current_line)
+
+
+
+
+
+        print(f"Writing file: {current_category['parent_page']}.")
+        output_file.writelines(output_content)
+        output_file.close()        
         
         pass
 
