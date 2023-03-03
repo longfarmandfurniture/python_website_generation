@@ -67,7 +67,41 @@ def main():
                     output_content.append(f"\t\t{item}\n<br><br>\n")
 
         
+            if "%%project_links%%" in current_line:
+                append_line = False
 
+                #Here we're getting the JSON file from the individual project page so we can get data there
+                for current_json_data_file in current_category["json_data_file_list"]:
+                    if os.path.isfile(current_json_data_file):
+                        print(f"Found file: {current_json_data_file}")
+                        tempdict = {}
+                        with open(current_json_data_file) as file:
+                            tempdict = json.load(file)
+                        pass
+
+
+
+
+
+
+
+
+                    
+
+
+
+
+                    pass
+
+
+
+
+
+
+                #for current_image in current_project["images"]:
+                    #For HTML since source dict will be OS dependent
+                 #   html_path = current_image.replace("\\", "/")
+                #    output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
 
 
             #append line to output list
