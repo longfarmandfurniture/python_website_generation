@@ -72,15 +72,16 @@ def main():
 
                 #Here we're getting the JSON file from the individual project page so we can get data there
                 for current_json_data_file in current_category["json_data_file_list"]:
-                    if os.path.isfile(current_json_data_file):
-                        print(f"Found file: {current_json_data_file}")
+                    json_full_path = os.path.join(output_directory, current_json_data_file)
+                    if os.path.isfile(json_full_path):
+                        print(f"Found file: {json_full_path}")
                         tempdict = {}
-                        with open(current_json_data_file) as file:
+                        with open(json_full_path) as file:
                             tempdict = json.load(file)
                         
                         #Create link/image in page from share link (should always be share size)
                         output_content.append(f'\t\t<a href="{tempdict["html_filename"]}">')
-                        preview_file_path = os.path.relpath(os.path.dirname(current_json_data_file), output_directory) + f"/{tempdict['preview_file_name']}"
+                        preview_file_path = os.path.relpath(os.path.dirname(json_full_path), output_directory) + f"/{tempdict['preview_file_name']}"
                         #for Windows
                         preview_file_path = preview_file_path.replace("\\", "/")
                         output_content.append(f'<img src="{preview_file_path}">')
