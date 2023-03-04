@@ -27,7 +27,7 @@ def main():
 
                 temp_page = {}
                 temp_page["parent_page"] = tempdict["parent_page"]
-                temp_page["page_data_file"] = json_filename
+                temp_page["page_data_file"] = os.path.relpath(json_filename, output_directory)
 
                 #Just get data needed.  Another script will get the rest of the information.
                 page_list.append(temp_page)
@@ -74,6 +74,7 @@ def main():
         #We write to a separated file so that the user-modified file isn't overwritten.
         filename = current_page["parent_page"].replace(".html","") + "_automated" + ".json"
         output_file = open(os.path.join(output_directory,filename), "w")
+        print(f"Writing output json file {output_file.name}")
         json.dump(current_page, output_file, indent=4)
         output_file.close()
 
