@@ -61,7 +61,7 @@ def main():
     #Pulling this into memory isn't incredibly efficient, but the files are small.
     #All data is stored in the dictionary at this point
     for current_project in project_list:
-        template_file = open(os.path.join(output_directory,"project_page_template.html"),"rt")
+        template_file = open(os.path.join(output_directory,"zz_project_page_template.html"),"rt")
         output_file = open(os.path.join(output_directory,current_project["html_filename"]), "w")
         template_content = template_file.readlines()
         template_file.close()

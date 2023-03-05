@@ -38,7 +38,7 @@ def main():
     # Pulling this into memory isn't incredibly efficient, but the files are small.
     # Some data is stored in dictionaries, but dictionaries have links to json files for project pages
     for current_category in category_list:
-        template_file = open(os.path.join(output_directory,"category_page_template.html"), "rt")
+        template_file = open(os.path.join(output_directory,"zz_category_page_template.html"), "rt")
         output_file = open(os.path.join(output_directory, current_category["parent_page"]), "w")
         #Get template content
         template_content = template_file.readlines()
