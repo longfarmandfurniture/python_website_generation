@@ -60,6 +60,8 @@ def main():
             #Long title instances
             current_line = current_line.replace("%%long_title%%", current_category["long_title"])
 
+            current_line = current_line.replace("%%parent%%", current_category["parent_page"])
+
             #Variable number of description lines
             if "%%description%%" in current_line:
                 append_line = False
