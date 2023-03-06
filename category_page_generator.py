@@ -60,6 +60,10 @@ def main():
             #Long title instances
             current_line = current_line.replace("%%long_title%%", current_category["long_title"])
 
+            #Meta description tag
+            current_line = current_line.replace("%%meta_description%%", current_category["meta_description"])
+
+            #Parent page
             current_line = current_line.replace("%%parent%%", current_category["parent_page"])
 
             #Variable number of description lines

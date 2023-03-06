@@ -80,6 +80,9 @@ def main():
             #Long title instances
             temp_line = temp_line.replace("%%long_title%%", current_project["long_title"])
 
+            #Meta description tag
+            temp_line = temp_line.replace("%%meta_description%%", current_project["meta_description"])
+
             #Preview/thumbnail
             temp_line = temp_line.replace("%%preview%%", current_project["preview_file_location"].replace("\\", "/"))
 
