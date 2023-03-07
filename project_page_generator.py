@@ -30,8 +30,8 @@ def main():
                 #Get picture filenames, relative path, but OS dependent
                 images_list = FindFilesRelative(output_directory, x, "jpg,jpeg,png")
                 images_list.sort()
-                tempdict["images"] = images_list
-
+                tempdict["image_paths"] = images_list
+                pass
                 #Preview image, not included with files
                 #return [i for i, x in enumerate(lst) if x<a or x>b]
                 if "preview_file_name" in tempdict:
@@ -39,7 +39,7 @@ def main():
                     if len(temp_index) > 0:
                         tempdict["preview_file_location"] = images_list[temp_index[0]]
                         images_list.remove(images_list[temp_index[0]])
-                        print(f"Found preview imageL {tempdict['preview_file_name']}.")
+                        print(f"Found preview image {tempdict['preview_file_name']}.")
                     pass
 
                 #Fill in any gaps
@@ -97,10 +97,18 @@ def main():
 
             if "%%images%%" in temp_line:
                 append_line = False
-                for current_image in current_project["images"]:
+                for current_image in current_project["image_paths"]:
                     #For HTML since source dict will be OS dependent
+                    image_file_name = os.path.basename(current_image)
                     html_path = current_image.replace("\\", "/")
-                    output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
+
+                    nodata = True
+                    if "images" in current_project:
+                        if image_file_name in current_project["images"]:
+                            output_content.append(f"\t\t<img src=\"{html_path}\" alt=\"{current_project['images'][image_file_name]}\"><br><br>\n")
+                            nodata = False
+                    if nodata:
+                        output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
 
 
             #append line to output list
