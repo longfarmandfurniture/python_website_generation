@@ -90,7 +90,10 @@ def main():
                         preview_file_path = os.path.relpath(os.path.dirname(json_full_path), output_directory) + f"/{tempdict['preview_file_name']}"
                         #for Windows
                         preview_file_path = preview_file_path.replace("\\", "/")
-                        output_content.append(f'<img src="{preview_file_path}">')
+                        if "preview_alt_text" in tempdict:
+                            output_content.append(f"<img src=\"{preview_file_path}\" alt=\"{tempdict['preview_alt_text']}\">")
+                        else:
+                            output_content.append(f"<img src=\"{preview_file_path}\">")
                         output_content.append(f'</a><br><br>\n')
 
 
