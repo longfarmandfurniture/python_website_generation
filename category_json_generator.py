@@ -61,10 +61,8 @@ def main():
             for current_page in parent_page_list:
                 temp_dict = {}
                 if current_page["parent_page"] == parent_page_file:
-                    temp_dict = current_page
-                    temp_dict["json_data_file_list"].append(x["page_data_file"])
-                temp_list.append(temp_dict)
-            parent_page_list = temp_list
+                    current_page["json_data_file_list"].append(x["page_data_file"])
+                    
 
             pass
             #Find a good way to do this with list comprehension.  
