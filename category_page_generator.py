@@ -86,7 +86,7 @@ def main():
                             tempdict = json.load(file)
                         
                         #Create link/image in page from share link (should always be share size)
-                        output_content.append(f'\t\t<a href="{tempdict["html_filename"]}">')
+                        output_content.append(f'\t\t\t<div class="projectlink"><a href="{tempdict["html_filename"]}">')
                         preview_file_path = os.path.relpath(os.path.dirname(json_full_path), output_directory) + f"/{tempdict['preview_file_name']}"
                         #for Windows
                         preview_file_path = preview_file_path.replace("\\", "/")
@@ -94,7 +94,7 @@ def main():
                             output_content.append(f"<img src=\"{preview_file_path}\" alt=\"{tempdict['preview_alt_text']}\">")
                         else:
                             output_content.append(f"<img src=\"{preview_file_path}\">")
-                        output_content.append(f'</a><br><br>\n')
+                        output_content.append(f'</a></div><br><br>\n')
 
 
             #append line to output list
