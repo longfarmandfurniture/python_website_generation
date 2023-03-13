@@ -95,6 +95,16 @@ def main():
                 for item in current_project["description"]:
                     output_content.append(f"\t\t{item}\n<br><br>\n")
 
+                #Add link to build or finished pages if they exist.  Defined in JSON
+                if "build_page" in current_project:
+                    if current_project["build_page"] != "":
+                        output_content.append(f"\t\t<a href=\"{current_project['build_page']}\">Click here to see the build!</a>\n<br><br>\n")
+
+                if "finished_page" in current_project:
+                    if current_project["finished_page"] != "":
+                        output_content.append(f"\t\t<a href=\"{current_project['finished_page']}\">Click here to see the finished project!</a>\n<br><br>\n")
+
+
             if "%%images%%" in temp_line:
                 append_line = False
                 for current_image in current_project["image_paths"]:
@@ -110,6 +120,7 @@ def main():
                     if nodata:
                         output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
 
+            pass
 
             #append line to output list
             if append_line:
