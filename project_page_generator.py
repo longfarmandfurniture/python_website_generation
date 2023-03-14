@@ -89,6 +89,9 @@ def main():
             #Return link
             temp_line = temp_line.replace("%%parent%%", current_project["parent_page"])
 
+            #Page filename
+            temp_line = temp_line.replace("%%html_filename%%", current_project["html_filename"])
+
             #Variable number of description lines
             if "%%description%%" in temp_line:
                 append_line = False
