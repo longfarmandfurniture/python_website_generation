@@ -84,7 +84,8 @@ def main():
             temp_line = temp_line.replace("%%meta_description%%", current_project["meta_description"])
 
             #Preview/thumbnail
-            temp_line = temp_line.replace("%%preview%%", current_project["preview_file_location"].replace("\\", "/"))
+            if "preview_file_location" in current_project:
+                temp_line = temp_line.replace("%%preview%%", current_project["preview_file_location"].replace("\\", "/"))
 
             #Return link
             temp_line = temp_line.replace("%%parent%%", current_project["parent_page"])
