@@ -107,6 +107,16 @@ def main():
                     if current_project["finished_page"] != "":
                         output_content.append(f"\t\t<a href=\"{current_project['finished_page']}\">Click here to see the finished project!</a>\n<br><br>\n")
 
+                #Add link to previous page if it exists.  Defined in JSON
+                if "previous_page" in current_project:
+                    if current_project["previous_page"] != "":
+                       output_content.append(f"\t\t<a href=\"{current_project['previous_page']}\">Click here to see the previous page for this project.</a>\n<br><br>\n")
+
+               #Add link to next page if it exists.  Defined in JSON
+                if "next_page" in current_project:
+                    if current_project["next_page"] != "":
+                       output_content.append(f"\t\t<a href=\"{current_project['next_page']}\">Click here to see the next page for this project.</a>\n<br><br>\n")
+
 
             if "%%images%%" in temp_line:
                 append_line = False
