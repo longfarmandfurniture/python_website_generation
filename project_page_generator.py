@@ -97,27 +97,28 @@ def main():
             if "%%description%%" in temp_line:
                 append_line = False
                 for item in current_project["description"]:
-                    output_content.append(f"\t\t{item}\n<br><br>\n")
+                    output_content.append(f"\t\t\t{item}\n")
+                    if current_project["description"][-1] != item:
+                        output_content.append(f"\t\t\t<br><br>\n")
+            
+            #Add link to previous/build/finished/next pages if they exist.  Defined in JSON
+            if "%%middle_buttons%%" in temp_line:
+                append_line = False
+                if "previous_page" in current_project:
+                    if current_project["previous_page"] != "":
+                        output_content.append(f"\t\t\t<li><a href=\"{current_project['previous_page']}\">Previous Section</a></li>\n")
 
-                #Add link to build or finished pages if they exist.  Defined in JSON
                 if "build_page" in current_project:
                     if current_project["build_page"] != "":
-                        output_content.append(f"\t\t<a href=\"{current_project['build_page']}\">Click here to see the build!</a>\n<br><br>\n")
+                        output_content.append(f"\t\t\t<li><a href=\"{current_project['build_page']}\">Project Build</a></li>\n")
 
                 if "finished_page" in current_project:
                     if current_project["finished_page"] != "":
-                        output_content.append(f"\t\t<a href=\"{current_project['finished_page']}\">Click here to see the finished project!</a>\n<br><br>\n")
-
-                #Add link to previous page if it exists.  Defined in JSON
-                if "previous_page" in current_project:
-                    if current_project["previous_page"] != "":
-                       output_content.append(f"\t\t<a href=\"{current_project['previous_page']}\">Click here to see the previous page for this project.</a>\n<br><br>\n")
-
-               #Add link to next page if it exists.  Defined in JSON
+                        output_content.append(f"\t\t\t<li><a href=\"{current_project['finished_page']}\">Finished Project</a></li>\n")
+                
                 if "next_page" in current_project:
                     if current_project["next_page"] != "":
-                       output_content.append(f"\t\t<a href=\"{current_project['next_page']}\">Click here to see the next page for this project.</a>\n<br><br>\n")
-
+                        output_content.append(f"\t\t\t<li><a href=\"{current_project['next_page']}\">Next Section</a></li>\n")
 
             if "%%images%%" in temp_line:
                 append_line = False
@@ -129,10 +130,10 @@ def main():
                     nodata = True
                     if "images" in current_project:
                         if image_file_name in current_project["images"]:
-                            output_content.append(f"\t\t<img src=\"{html_path}\" alt=\"{current_project['images'][image_file_name]}\"><br><br>\n")
+                            output_content.append(f"\t\t<img src=\"{html_path}\" alt=\"{current_project['images'][image_file_name]}\">\n")
                             nodata = False
                     if nodata:
-                        output_content.append(f"\t\t<img src=\"{html_path}\"><br><br>\n")
+                        output_content.append(f"\t\t<img src=\"{html_path}\">\n")
 
             pass
 
